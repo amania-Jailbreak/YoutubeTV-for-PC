@@ -5,7 +5,12 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npx electron .",
-		"build": "electron-builder --x64 --linux",
+		"build": {
+			"appId": "com.username.sample-project",
+			"files": [
+			  "dist/**/*"
+			]
+		  },
 		"start": "electron-forge start",
 		"package": "electron-forge package",
 		"make": "electron-forge make"
