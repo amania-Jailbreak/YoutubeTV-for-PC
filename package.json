@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "npx electron .",
 		"build": {
-			"appId": "com.username.sample-project",
+			"appId": "com.amania.youtubetv",
 			"files": [
 			  "dist/**/*"
 			]
