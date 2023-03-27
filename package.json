@@ -1,0 +1,38 @@
+{
+	"name": "youtube-client",
+	"version": "1.1.0",
+	"description": "YoutubeTV for PC",
+	"main": "index.js",
+	"scripts": {
+		"test": "npx electron .",
+		"build": "electron-builder --x64 --linux",
+		"start": "electron-forge start",
+		"package": "electron-forge package",
+		"make": "electron-forge make"
+	},
+	"author": "amania",
+	"license": "ISC",
+	"dependencies": {
+		"@electron/remote": "^2.0.9",
+		"electron-squirrel-startup": "^1.0.0"
+	},
+	"devDependencies": {
+    "@electron/remote": "^2.0.9",
+		"@electron-forge/cli": "^6.0.5",
+		"@electron-forge/maker-deb": "^6.0.5",
+		"@electron-forge/maker-rpm": "^6.0.5",
+		"@electron-forge/maker-squirrel": "^6.0.5",
+		"@electron-forge/maker-zip": "^6.0.5",
+		"electron": "^23.1.1",
+		"electron-builder": "^22.10.3"
+	},
+	"build": {
+		"appId": "jp.casiotweaks.youtube",
+		"win": {
+			"target": [
+				"portable"
+			],
+			"icon": "app.ico"
+		}
+	}
+}

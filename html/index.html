@@ -1,0 +1,47 @@
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+}
+html{
+  background-color: rgb(36,36,36);
+}
+.titlebar {
+  height: 24px;
+  width: auto;
+  background-color: rgb(36, 36, 36);
+  text-align: center;
+  color:white;
+  -webkit-app-region: drag;
+}
+
+.titlebar a {
+  display: inline-block;
+  text-align: center;
+}
+
+.titlebar img {
+  float: right;
+  height: 20px;
+  margin: 2px;
+  -webkit-app-region: no-drag;
+}
+
+.iframe {
+  height: calc(100vh - 24px);
+  width: 100%;
+  border: none;
+}
+</style>
+<script src="renderer.js"></script>
+</head>
+<body>
+<div class="titlebar">
+<a>YoutubeTV for Windows</a>
+<img id="button3" src="button3.png" alt="ボタン1">
+<img id="button2" src="button2.png" alt="ボタン2">
+<img id="button1" src="button1.png" alt="ボタン3">
+</div>
+</body>
+</html>
