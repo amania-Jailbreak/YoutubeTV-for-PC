@@ -1,6 +1,6 @@
 {
 	"name": "youtubeTV-client",
-	"version": "v1.1.1",
+	"version": "v1.1.2",
 	"description": "YoutubeTV for PC",
 	"main": "index.js",
 	"scripts": {
