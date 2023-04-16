@@ -12,9 +12,7 @@ const createWindow = () => {
     }
   })
   mainWindow.setMenuBarVisibility(false);
-  //mainWindow.loadURL(rootUrl, { userAgent: userAgent }).
-  mainWindow.loadFile("./html/index.html")
-  mainWindow.openDevTools();
+  //mainWindow.loadURL(rootUrl, { userAgent: userAgent }).ßß
   let view = new BrowserView()
   mainWindow.setBrowserView(view)
   let winWidth = mainWindow.getBounds().width
