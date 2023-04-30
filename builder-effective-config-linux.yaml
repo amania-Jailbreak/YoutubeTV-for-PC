@@ -1,0 +1,9 @@
+directories:
+  output: "dist"
+  buildResources: "build"
+appId: "com.amania.youtubetv"
+win:
+  target: "appImage"
+  publish:
+    - github
+artifactName: "${name}-${version}-${os}.${ext}"
