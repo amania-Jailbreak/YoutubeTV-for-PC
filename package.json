@@ -5,12 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npx electron .",
-		"build": {
-			"appId": "com.amania.youtubetv",
-			"files": [
-			  "dist/**/*"
-			]
-		  },
+		"build:win": "electron-builder --win --x64 -c ./builder-effective-config-win.yaml",
+    		"build:mac": "electron-builder --mac -c ./builder-effective-config-mac.yaml"
+		"build:linux": "electron-builder --linux -c ./builder-effective-config-linux.yaml"
 		"start": "electron-forge start",
 		"package": "electron-forge package",
 		"make": "electron-forge make"
