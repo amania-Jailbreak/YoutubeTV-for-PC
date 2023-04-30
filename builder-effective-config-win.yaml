@@ -1,7 +1,7 @@
 directories:
   output: "dist"
   buildResources: "build"
-appId: "com.twitterdev.tools.TwitterAds.Analytics.Debugger"
+appId: "com.amania.youtubetv"
 win:
   target: "portable"
   publish:
