@@ -1,62 +1,53 @@
-const { app, BrowserWindow, BrowserView } = require('electron')
+// Modules to control application life and create native browser window
+const { app, BrowserWindow} = require('electron');
+const fs = require('fs');
 
-const path = require('path')
-var userAgent = 'Mozilla/5.0 (SMART-TV; Create By CasioTweaks) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36'
 const createWindow = () => {
+  // Create the browser window.
+  var userAgent = 'Mozilla/5.0 (SMART-TV; Create By CasioTweaks) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36'
   const mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 605,kiosk: true, 'fullscreen': true,frame:false,
+    width: 600, height: 800, kiosk: true, 'fullscreen': true, 'frame': false,
     webPreferences: {
-      preload: path.join(__dirname,'preload.js'),
       enableRemoteModule: true
     }
-  })
-  mainWindow.setMenuBarVisibility(false);
-  //mainWindow.loadURL(rootUrl, { userAgent: userAgent }).ßß
-  let view = new BrowserView()
-  mainWindow.setBrowserView(view)
-  let winWidth = mainWindow.getBounds().width
-  let winHeight = mainWindow.getBounds().height
-  let viewHeight = winHeight - 24
-  view.setBounds({ x: 0, y: 0, width: winWidth, height: winHeight })
-  view.webContents.loadURL('https://www.youtube.com/tv', { userAgent: userAgent })
-  mainWindow.on('resize', () => {
-    if (mainWindow.isFullScreen()) {
-      // フルスクリーンのときの処理
-      let winWidth = mainWindow.getBounds().width
-      let winHeight = mainWindow.getBounds().height
-      let viewHeight = winHeight - 24
-      view.setBounds({ x: 0, y: 0, width: winWidth, height: winHeight })
-    } else {
-      // フルスクリーンでないときの処理
-      let winWidth = mainWindow.getBounds().width
-      let winHeight = mainWindow.getBounds().height
-      let viewHeight = winHeight - 24
-      view.setBounds({ x: 0, y: 24, width: winWidth, height: viewHeight })
-    }
-
-  })
-  const ipcMain = require('electron').ipcMain;
-  ipcMain.handle("button3", () => {
-    mainWindow.close()
-    // or
-    // mainWindow.maximize();
   });
 
-  view.webContents.on('close', () => {
-    // BrowserWindowを閉じる
-    mainWindow.close()
-  })
-  mainWindow.setAlwaysOnTop(true, "screen-saver")
-
+  // and load the index.html of the app.
+  mainWindow.loadURL('https://www.youtube.com/tv', { userAgent: userAgent });
 }
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  app.on('activate', function () {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   })
 })
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+app.on('ready', () => {
+  const easyList = fs.readFileSync('./easylist.txt', 'utf8').split('\n');
+  const { session } = require('electron');
+  session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
+    if (easyList.some((pattern) => details.url.match(pattern))) {
+      console.log(`広告をブロックしました: ${details.url}`);
+      const blockingResponse = {
+        cancel: true
+      };
+
+      callback(blockingResponse);
+    } else {
+      callback({});
+    }
+  });
+});
+
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', function () {
+  app.quit();
 })
