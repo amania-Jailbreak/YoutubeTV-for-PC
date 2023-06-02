@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow} = require('electron');
 const fs = require('fs');
-
+const path = require('path');
 const createWindow = () => {
   // Create the browser window.
   var userAgent = 'Mozilla/5.0 (SMART-TV; Create By CasioTweaks) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36'
@@ -29,7 +29,7 @@ app.whenReady().then(() => {
   })
 })
 app.on('ready', () => {
-  const easyList = fs.readFileSync('./easylist.txt', 'utf8').split('\n');
+  const easyList = fs.readFileSync(path.join(__dirname, 'easylist.txt'), 'utf8').split('\n');
   const { session } = require('electron');
   session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
     if (easyList.some((pattern) => details.url.match(pattern))) {

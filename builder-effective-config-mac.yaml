@@ -2,6 +2,10 @@ directories:
   output: "dist"
   buildResources: "build"
 appId: "com.amania.youtubetv"
+asar: false
+files:
+  - "easylist.txt"
+  - "index.js"
 mac:
   target: "dmg"
 artifactName: "${name}-${version}-${os}.${ext}"
